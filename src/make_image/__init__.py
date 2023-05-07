@@ -1,8 +1,9 @@
-"""This is a template for Auto-GPT plugins."""
+"""This plugin is the DALL-E Mini plugin for AutoGPT."""
+
 import abc
 from typing import Any, Dict, List, Optional, Tuple, TypeVar, TypedDict
-
 from abstract_singleton import AbstractSingleton, Singleton
+from .make_image import AutoGPTMakeImagePlugin
 
 PromptGenerator = TypeVar("PromptGenerator")
 
@@ -12,16 +13,17 @@ class Message(TypedDict):
     content: str
 
 
-class AutoGPTPluginTemplate(AbstractSingleton, metaclass=Singleton):
+class AutoGPTDallEMini(AbstractSingleton, metaclass=Singleton):
     """
-    This is a template for Auto-GPT plugins.
+    This plugin is the DALL-E Mini plugin for AutoGPT.
     """
 
     def __init__(self):
         super().__init__()
-        self._name = "Auto-GPT-Plugin-Template"
+        self._name = "auto-gpt-dalle-mini"
         self._version = "0.1.0"
-        self._description = "This is a template for Auto-GPT plugins."
+        self._description = "Generate images with DALL-E Mini using your computer."
+        self.plugion = AutoGPTMakeImagePlugin(self)
 
     @abc.abstractmethod
     def can_handle_on_response(self) -> bool:
@@ -57,7 +59,13 @@ class AutoGPTPluginTemplate(AbstractSingleton, metaclass=Singleton):
         Returns:
             PromptGenerator: The prompt generator.
         """
-        pass
+        
+        prompt.add_command(
+            "make_image",
+            "Make an image with DALL-E Mini.",
+            self.plugin.make_image,
+        )
+
 
     @abc.abstractmethod
     def can_handle_on_planning(self) -> bool:
