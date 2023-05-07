@@ -1,9 +1,8 @@
-"""This plugin is the Sable Diffusion plugin for AutoGPT."""
-
+"""This is a template for Auto-GPT plugins."""
 import abc
 from typing import Any, Dict, List, Optional, Tuple, TypeVar, TypedDict
+
 from abstract_singleton import AbstractSingleton, Singleton
-from .make_image import AutoGPTMakeImagePlugin
 
 PromptGenerator = TypeVar("PromptGenerator")
 
@@ -13,17 +12,16 @@ class Message(TypedDict):
     content: str
 
 
-class AutoGPTDallEMini(AbstractSingleton, metaclass=Singleton):
+class AutoGPTPluginTemplate(AbstractSingleton, metaclass=Singleton):
     """
-    This plugin is the DALL-E Mini plugin for AutoGPT.
+    This is a template for Auto-GPT plugins.
     """
 
     def __init__(self):
         super().__init__()
-        self._name = "auto-gpt-stable-diffusion"
+        self._name = "Auto-GPT-Plugin-Template"
         self._version = "0.1.0"
-        self._description = "Generate images with Stable Diffusion using your computer."
-        self.plugion = AutoGPTMakeImagePlugin(self)
+        self._description = "This is a template for Auto-GPT plugins."
 
     @abc.abstractmethod
     def can_handle_on_response(self) -> bool:
@@ -43,7 +41,6 @@ class AutoGPTDallEMini(AbstractSingleton, metaclass=Singleton):
     def can_handle_post_prompt(self) -> bool:
         """This method is called to check that the plugin can
         handle the post_prompt method.
-
         Returns:
             bool: True if the plugin can handle the post_prompt method."""
         return False
@@ -52,19 +49,12 @@ class AutoGPTDallEMini(AbstractSingleton, metaclass=Singleton):
     def post_prompt(self, prompt: PromptGenerator) -> PromptGenerator:
         """This method is called just after the generate_prompt is called,
             but actually before the prompt is generated.
-
         Args:
             prompt (PromptGenerator): The prompt generator.
-
         Returns:
             PromptGenerator: The prompt generator.
         """
-        
-        prompt.add_command(
-            "make_image",
-            "Make an image.",
-            self.plugin.make_image,
-        )
+        pass
 
 
     @abc.abstractmethod
