@@ -1,8 +1,6 @@
-
-
 class AutoGPTMakeImagePlugin:
 
-    """This plugin is used to make an image with DALL-E Mini."""
+    """This plugin is used to make an image with Stable Diffusion."""
 
     def __init__(self, plugin):
         """The constructor method."""

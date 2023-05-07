@@ -1,4 +1,4 @@
-"""This plugin is the DALL-E Mini plugin for AutoGPT."""
+"""This plugin is the Sable Diffusion plugin for AutoGPT."""
 
 import abc
 from typing import Any, Dict, List, Optional, Tuple, TypeVar, TypedDict
@@ -20,9 +20,9 @@ class AutoGPTDallEMini(AbstractSingleton, metaclass=Singleton):
 
     def __init__(self):
         super().__init__()
-        self._name = "auto-gpt-dalle-mini"
+        self._name = "auto-gpt-stable-diffusion"
         self._version = "0.1.0"
-        self._description = "Generate images with DALL-E Mini using your computer."
+        self._description = "Generate images with Stable Diffusion using your computer."
         self.plugion = AutoGPTMakeImagePlugin(self)
 
     @abc.abstractmethod
@@ -62,7 +62,7 @@ class AutoGPTDallEMini(AbstractSingleton, metaclass=Singleton):
         
         prompt.add_command(
             "make_image",
-            "Make an image with DALL-E Mini.",
+            "Make an image.",
             self.plugin.make_image,
         )
 
